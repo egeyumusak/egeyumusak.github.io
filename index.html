@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -5,19 +6,70 @@
 <title>ege yumuşak</title>
 <meta name="author" content="ege yumuşak">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<link id="theme" rel="stylesheet" type="text/css" href="main.css">
 <style type="text/css">
-p { font-family: "Inconsolata", "Consolas", "Fira Mono", "Liberation Mono", "Lucida Console", "Noto Mono", monospace; font-size: 12pt; line-height: 150%; margin-left: 0.5cm; margin-right: 0.5cm; margin-bottom: 0.25cm; background: transparent; font-smooth:  auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-h1 { font-family: "Inconsolata", "Consolas", "Fira Mono", "Liberation Mono", "Lucida Console", "Noto Mono", monospace; font-size: 24pt; font-weight: bold; margin-top: 1.0cm; margin-left: 0.5cm; margin-right: 0.5cm; font-smooth:  auto; -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; page-break-after: avoid; }
-h2 { font-family: "Inconsolata", "Consolas", "Fira Mono", "Liberation Mono", "Lucida Console", "Noto Mono", monospace; font-size: 18pt; font-weight: bold; background: transparent; font-smooth:  auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; page-break-after: avoid }
-h3 { font-family: "Inconsolata", "Consolas", "Fira Mono", "Liberation Mono", "Lucida Console", "Noto Mono", monospace; font-size: 12pt; font-weight: bold; font-style: italic; background: transparent; font-smooth:  auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; page-break-after: avoid }
-em { font-style: italic }
-a:link { color: #009fff; text-decoration: none }
-a:active { color: #ff5500; text-decoration: none }
-a:visited { color: #aaaaff; text-decoration: none }
+  body { background-color: #eee; color: #222; font-family: "Inconsolata", "Consolas", "Fira Mono", "Liberation Mono", "Lucida Console", "Noto Mono", monospace; transition: background-color 0.3s, color 0.3s; }
+  body.dark-theme { background-color: #222; color: #eee; }
+  p { font-size: 12pt; line-height: 150%; margin-left: 0.5cm; margin-right: 0.5cm; margin-bottom: 0.25cm; }
+  h1 { font-size: 24pt; font-weight: bold; margin-top: 1.0cm; margin-left: 0.5cm; margin-right: 0.5cm; }
+  h2 { font-size: 18pt; font-weight: bold; }
+  h3 { font-size: 12pt; font-weight: bold; font-style: italic; }
+  em { font-style: italic; }
+  a:link { color: #009fff; text-decoration: none }
+  a:active { color: #ff5500; text-decoration: none }
+  a:visited { color: #aaaaff; text-decoration: none }
 </style>
 </head>
 <body>
+
+<p>
+  <a class="style" onclick="toggleTheme()">
+  <img src="bulb_light.svg" onmouseover="this.src='bulb_dark.svg'" onmouseout="this.src='bulb_light.svg'" alt="Light/Dark Theme" style="height:20px;width:20px;" id="theme-icon" />
+  </a>
+</p>
+
+<script>
+    const imagePaths = {
+        light: "bulb_light.svg",
+        dark: "bulb_white.svg",
+        lightHover: "bulb_dark.svg",
+        darkHover: "bulb_white_full.svg"
+    };
+    Object.values(imagePaths).forEach((src) => {
+        const img = new Image();
+        img.src = src;
+    });
+    function applyTheme(darkMode) {
+        let body = document.body;
+        let icon = document.getElementById("theme-icon");
+
+        if (darkMode) {
+            body.classList.add("dark-theme");
+            icon.src = imagePaths.dark;
+            icon.onmouseover = () => { icon.src = imagePaths.darkHover; };
+            icon.onmouseout = () => { icon.src = imagePaths.dark; };
+        } else {
+            body.classList.remove("dark-theme");
+            icon.src = imagePaths.light;
+            icon.onmouseover = () => { icon.src = imagePaths.lightHover; };
+            icon.onmouseout = () => { icon.src = imagePaths.light; };
+        }
+
+        document.body.style.display = "none";
+        document.body.offsetHeight;
+        document.body.style.display = "";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark);
+    });
+
+    function toggleTheme() {
+        let isDark = document.body.classList.contains("dark-theme");
+        applyTheme(!isDark);
+}
+</script>
 
 <table border="0" width="100%">
 <tr>
